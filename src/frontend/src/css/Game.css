@@ -1,0 +1,37 @@
+*{
+  background-color: black;
+}
+ .header
+ {
+  
+    display: block;
+    width: max-content;
+    height: auto;
+    margin: auto;
+  
+    
+ }
+
+.box
+{
+  width: 100%;
+  margin: auto;
+  height: 100%;
+}
+
+.box >.shape1
+{
+ width: 100px;
+ height: 100px;
+ display: inline-block;
+}
+
+
+.shape1 > .shape
+{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  position: relative;
+}
+
