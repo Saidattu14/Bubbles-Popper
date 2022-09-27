@@ -44,7 +44,7 @@ class GameStateFunctions {
         let pauseValue:PauseData = {
             callBackFunction : callBackFunction,
             remainingTime : remainingTime,
-            bubbleInfo : element.bubbleData,
+            bubbleInfo : element.bubbleInfo,
             bubbleTimeState : element.bubbleTimeState
          }
          pauseBubbleData.append(pauseValue);
