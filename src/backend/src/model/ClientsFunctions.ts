@@ -11,9 +11,9 @@ class ClientFunctions {
     /**
     * This method is used for getting all availble clients.
     */
-    public getAvailableClientsList (connectionsList :Array<ConnectionDetails>,connection : WebSocketConnection)
+    public getAvailableClientsList (connectionsList :Array<ConnectionDetails>,connection : WebSocketConnection) :Array<ConnectionDetails>
     {
-        let arr = new Array();
+        let arr = new Array<ConnectionDetails>;
         connectionsList.forEach((element) => {
             if(element.websocket != connection && element.status == StatusType.Available)
             {
@@ -31,37 +31,37 @@ class ClientFunctions {
     /**
     * This method is used for getting the specific client connection that matches clientId.
     */
-    public getClientConnection(clientId: string,connectionsList: Array<ConnectionDetails>)
+    public getClientConnection(clientId: string,connectionsList: Array<ConnectionDetails>) : ConnectionDetails
     {
-        let ele:any;
+        let ele!:ConnectionDetails;
         connectionsList.forEach((element) => {
             if(element.clientId == clientId)
             {
                 ele = element;
             }
         });
-        return ele as ConnectionDetails;
+        return ele;
     }
 
     /**
     * This method is used for getting the client connection that matches the connection.
     */
-    public getOwnClientConnection(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>)
+    public getOwnClientConnection(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>) : ConnectionDetails
     {
-        let ele:any;
+        let ele!:ConnectionDetails;
         connectionsList.forEach((element) => {
             if(element.websocket == websocket)
             {
                 ele = element;
             }
         });
-        return ele as ConnectionDetails;
+        return ele;
     }
 
     /**
      * This method is used the setting the connection with availability status of NotAvilable.
     */
-    public setAvailabilityStatus(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>)
+    public setAvailabilityStatus(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>) : void
     {
         connectionsList.forEach((element) => {
             if(element.websocket == websocket)
@@ -69,13 +69,12 @@ class ClientFunctions {
                 element.status = StatusType.NotAvailable;
             }
         });
-        return connectionsList;
     }
 
     /**
      * This method is used the setting the connection with availability status of Available
     */
-    public setUnAvailabilityStatus(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>)
+    public setUnAvailabilityStatus(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>) : void
     {
         connectionsList.forEach((element) => {
             if(element.websocket == websocket)
@@ -83,16 +82,14 @@ class ClientFunctions {
                 element.status = StatusType.Available;
             }
         });
-        return connectionsList;
     }
 
     /**
      * This method is used remove the connection from the Connections Lists 
     */
-    public removeConnectionFromList(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>)
+    public removeConnectionFromList(websocket: WebSocketConnection,connectionsList: Array<ConnectionDetails>) : void
     {
-       connectionsList =  connectionsList.filter((element) => element.websocket != websocket);
-        return connectionsList;
+        connectionsList.filter((element) => element.websocket != websocket);
     }
 }
 

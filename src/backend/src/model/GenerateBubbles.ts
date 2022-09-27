@@ -18,7 +18,7 @@ class GenerateBubbles {
      * @return list
     */
 
-    public generateBubbles(bubbleData : BubblesDataModel)
+    public generateBubbles(bubbleData : BubblesDataModel) :  Array<BubbleInfo>
     {
        let list : Array<BubbleInfo> = [];
        if(bubbleData.previousSizeOfBubbles == 0)
@@ -40,7 +40,7 @@ class GenerateBubbles {
      * @return list
     */
 
-    public generateBubblesTwoPlayers(bubbleData : BubblesDataModel)
+    public generateBubblesTwoPlayers(bubbleData : BubblesDataModel) :Array<BubbleInfo>
     {
        let list : Array<BubbleInfo> = [];
        if(bubbleData.previousSizeOfBubbles == 0)
@@ -61,7 +61,7 @@ class GenerateBubbles {
      * @size
      * @return list
      */
-    public randomBubbles(size : number)
+    public randomBubbles(size : number) :  Array<BubbleInfo>
     {
         let list : Array<BubbleInfo> = [];
         for(let i =1; i<=size; i++)
@@ -88,7 +88,7 @@ class GenerateBubbles {
      * @index @bubble
      * @return bubble
      */
-    public setBubbleExpiryTime(index: number,bubble:BubbleInfo)
+    public setBubbleExpiryTime(index: number,bubble:BubbleInfo) : BubbleInfo
     {
 
         bubble.expiryTime = Date.now() + this.generateRandomNumber(25000,30000) + 1000*index;

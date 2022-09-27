@@ -13,7 +13,7 @@ class GameStateFunctions {
      * The pause data means the callback remaining time of the schedulers data. 
      * @pausedata @queuedata
     */
-    public pauseGame(pauseBubbleData : Queue<PauseData>, queue : Queue<BubbleSchedulerQueue>)
+    public pauseGame(pauseBubbleData : Queue<PauseData>, queue : Queue<BubbleSchedulerQueue>) : void
     {  
         let arr = queue.toArray();
         arr.forEach((element: BubbleSchedulerQueue) => {
@@ -26,7 +26,6 @@ class GameStateFunctions {
         {
             queue.removeHead();
         }
-        return [pauseBubbleData,queue];
     }
 
     /**
@@ -34,7 +33,7 @@ class GameStateFunctions {
      * @element contains settimout value, callbackFunction, createdtime and bubble data
      * @pauseBubbleData pause queue
     */
-    public estimatingAndStoringRemainingTimeout(element:any,pauseBubbleData: Queue<PauseData>)
+    public estimatingAndStoringRemainingTimeout(element:any,pauseBubbleData: Queue<PauseData>) : void
     {
         let timer = Math.ceil((element.createdTime + element.timer._idleStart + element.timer._idleTimeout - Date.now()));
         if(timer > 0)

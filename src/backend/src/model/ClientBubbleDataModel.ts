@@ -169,7 +169,7 @@ class ClientBubbleDataModel {
     protected removeBubbleInfo(gameId:string, id:string,bubblesData:BubblesDataModel) : boolean
     {
         let previousCount = bubblesData.poppedCount;
-        bubblesData = this.objectBubbleFunctions.removeBubbleInfo(bubblesData,id);
+        this.objectBubbleFunctions.removeBubbleInfo(bubblesData,id);
         if(previousCount == bubblesData.poppedCount)
         {
             return false;
@@ -257,7 +257,7 @@ class ClientBubbleDataModel {
     private clearBubbleSchedulerTime(gameId: string, bubbleId : string) : void
     {
         let queue:Queue<BubbleSchedulerQueue> = this.clientBubbles.get(gameId)?.bubblesSchedulerQueue as Queue<BubbleSchedulerQueue>;
-        queue = this.objectBubbleFunctions.clearBubbleSchedulerTime(queue,bubbleId);
+        this.objectBubbleFunctions.clearBubbleSchedulerTime(queue,bubbleId);
     }
      
     /**
@@ -267,7 +267,7 @@ class ClientBubbleDataModel {
     protected clearPreviousGame(gameId : string) : void
     {
         let bubblesData :BubblesDataModel =  this.clientBubbles.get(gameId) as BubblesDataModel;
-        bubblesData = this.objectBubbleFunctions.clearPreviousGameBubbleData(bubblesData);
+        this.objectBubbleFunctions.clearPreviousGameBubbleData(bubblesData);
     }
    
     /**
@@ -280,7 +280,7 @@ class ClientBubbleDataModel {
         let pauseBubblesData: Queue<PauseData> =  this.clientBubbles.get(gameId)?.pauseData as Queue<PauseData>
         let queue:Queue<BubbleSchedulerQueue> =  this.clientBubbles.get(gameId)?.bubblesSchedulerQueue as Queue<BubbleSchedulerQueue>;
         bubblesData.gameState = GameState.Resume;
-        this.objectGameStateFunctions.pauseGame(pauseBubblesData,queue);
+        this.objectGameStateFunctions.pauseGame(pauseBubblesData,queue)
     }
 
     /**
@@ -290,7 +290,7 @@ class ClientBubbleDataModel {
     protected resumeGame(gameId:string) : void
     { 
         let bubblesData :BubblesDataModel =  this.clientBubbles.get(gameId) as BubblesDataModel;
-        let arr : Queue<PauseData> =  this.clientBubbles.get(gameId)?.pauseData as Queue<PauseData>;
+        let arr : Queue<PauseData> =  bubblesData.pauseData as Queue<PauseData>;
         bubblesData.gameState = GameState.Pause;
         arr.toArray().forEach((element) => {
             this.setTimer(gameId,element.bubbleInfo,element.remainingTime,element.bubbleTimeState);
@@ -306,12 +306,12 @@ class ClientBubbleDataModel {
        try {
         if(gameId == undefined || gameId == null)
         {
-            this.connectionsList = this.objectClientFunctions.removeConnectionFromList(connection,this.connectionsList);
+            this.objectClientFunctions.removeConnectionFromList(connection,this.connectionsList);
         }
         else
         {  
             this.clientBubbles.delete(gameId);
-            this.connectionsList = this.objectClientFunctions.removeConnectionFromList(connection,this.connectionsList);
+            this.objectClientFunctions.removeConnectionFromList(connection,this.connectionsList);
             this.connectionsHashMap.delete(connection);
         }
       
@@ -351,18 +351,18 @@ class ClientBubbleDataModel {
      * This method sets the cilent availability status  from  available to unavailable
      * @connection WebSocketConnection
     */
-    protected setClientAvailabilityStatus(connection : WebSocketConnection)
+    protected setClientAvailabilityStatus(connection : WebSocketConnection) : void
     {
-        this.connectionsList = this.objectClientFunctions.setAvailabilityStatus(connection,this.connectionsList);
+        this.objectClientFunctions.setAvailabilityStatus(connection,this.connectionsList);
     }
     
     /**
      * This method  sets the cilent availability status  from  unavailable to available
      * @connection WebSocketConnection
     */
-    protected setClientUnAvailabilityStatus(connection : WebSocketConnection)
+    protected setClientUnAvailabilityStatus(connection : WebSocketConnection) : void
     {
-        this.connectionsList = this.objectClientFunctions.setUnAvailabilityStatus(connection,this.connectionsList);
+        this.objectClientFunctions.setUnAvailabilityStatus(connection,this.connectionsList);
     }
 }
 export default ClientBubbleDataModel;

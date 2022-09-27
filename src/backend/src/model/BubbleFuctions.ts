@@ -14,19 +14,18 @@ class BubbleFunctions {
     /**
      * This methods the bubbles data like currentsize, previoussize,bubble hashmap, bubbles queue. 
     */
-    public setBubblesData(gameId: string, bubbleList : Array<BubbleInfo>,bubbleData : BubblesDataModel) : BubblesDataModel {
+    public setBubblesData(gameId: string, bubbleList : Array<BubbleInfo>,bubbleData : BubblesDataModel) : void {
 
         bubbleData.currentBubbles = bubbleData.currentBubbles + bubbleList.length;
         bubbleData.previousSizeOfBubbles = bubbleData.previousSizeOfBubbles + bubbleList.length;
         this.pushBubbleToQueue(bubbleData,bubbleList);
         this.setBubbleHashMapData(gameId,bubbleList,bubbleData);
-        return bubbleData;
     }
 
     /**
      * This method pushes the list of the generated bubbles into the queue.
     */
-    public pushBubbleToQueue(clientBubbleData: BubblesDataModel , bubbleList: Array<BubbleInfo>)
+    public pushBubbleToQueue(clientBubbleData: BubblesDataModel , bubbleList: Array<BubbleInfo>) : void
     {
         for(let i=0; i<bubbleList.length;i++)
         {
@@ -48,7 +47,7 @@ class BubbleFunctions {
     /**
      * This method updates the bubble status as poped.
     */
-    public removeBubbleInfo(bubblesData : BubblesDataModel, id:string) : BubblesDataModel
+    public removeBubbleInfo(bubblesData : BubblesDataModel, id:string) : void
     {
         try {
             let bubble:BubbleInfo = bubblesData.bubblesHashMap.get(id) as BubbleInfo;
@@ -58,13 +57,12 @@ class BubbleFunctions {
         } catch (error) {
             console.log(error);
         }
-        return bubblesData;
     }
 
     /**
      * This method clear all the scheduler time of the bubble.
     */
-    public clearBubbleSchedulerTime(queue : Queue<BubbleSchedulerQueue>, bubbleId : string): Queue<BubbleSchedulerQueue>
+    public clearBubbleSchedulerTime(queue : Queue<BubbleSchedulerQueue>, bubbleId : string) : void
     {
         let arr = queue.toArray();
         arr.forEach((element: BubbleSchedulerQueue) => {
@@ -74,13 +72,12 @@ class BubbleFunctions {
                queue.remove(element);
             }
         });
-        return queue;
     }
 
     /**
      * This method clears all the previous bubbles data of the client.
     */
-    public clearPreviousGameBubbleData(bubblesData : BubblesDataModel) : BubblesDataModel
+    public clearPreviousGameBubbleData(bubblesData : BubblesDataModel) : void
     {
         while(bubblesData.bubblesQueue.length !=0)
         {
@@ -103,7 +100,6 @@ class BubbleFunctions {
         bubblesData.currentBubbles = 0;
         bubblesData.previousSizeOfBubbles = 0;
         bubblesData.bubblesHashMap.clear();
-        return bubblesData;
     }
 }
 

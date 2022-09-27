@@ -19,7 +19,7 @@ class GameValues {
      * @connection1 @connection2
      * @return BubbleData of double player datatypes
     */
-    public createDoublePlayerGame(connection1: WebSocketConnection,connection2: WebSocketConnection)
+    public createDoublePlayerGame(connection1: WebSocketConnection,connection2: WebSocketConnection) : BubblesDataModel
     {
         let ws:DoublePlayers = {
             connection1 : connection1,
@@ -45,7 +45,7 @@ class GameValues {
      * @connection
      * @return BubbleData of single player datatypes
     */
-    public createSinglePlayerGameData(connection:WebSocketConnection)
+    public createSinglePlayerGameData(connection:WebSocketConnection) : BubblesDataModel
     {
         let ws:SinglePlayer = {
             connection : connection,

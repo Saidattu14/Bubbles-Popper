@@ -40,7 +40,10 @@ class BubbleEventListners {
                     let msg1:string = JSON.stringify(msg);
 
                     websocket.send(msg1,(err:any) => {
-                        console.log(err)
+                        if(err != undefined)
+                        {
+                            console.log(err);
+                        }
                     });
                 }
             }
@@ -82,7 +85,10 @@ class BubbleEventListners {
                 }
                 let msg1:string = JSON.stringify(msg);
                 websocket.send(msg1,(err:any) => {
-                    console.log(err)
+                    if(err != undefined)
+                    {
+                        console.log(err);
+                    }
                 });
                 }
             }

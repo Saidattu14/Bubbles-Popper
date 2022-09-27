@@ -30,7 +30,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for creating the new client and sending back the clientId
      * @connection WebSocketConnection
     */
-    public addClient(connection : WebSocketConnection)
+    public addClient(connection : WebSocketConnection) : void
     {
        let clientId = this.addNewClient(connection);
        this.sendMessageModel.sendClientId(connection,clientId);
@@ -40,7 +40,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for creating new game when a connection made and send to the client. 
      * @connection WebSocketConnection
     */
-    public async createNewSinglePlayerGame(connection : WebSocketConnection)
+    public createNewSinglePlayerGame(connection : WebSocketConnection) : void
     {
        let gameId = this.createSinglePlayerGameData(connection);
        let bubblesData: BubblesDataModel = this.getBubblesData(gameId) as BubblesDataModel;
@@ -54,18 +54,18 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for removing the client connections.
      * @connection WebSocketConnection
     */
-    public removeClient(connection : WebSocketConnection)
+    public removeClient(connection : WebSocketConnection) : void
     {
         let gameId = this.getGameId(connection);
         let bubblesData: BubblesDataModel = this.getBubblesData(gameId) as BubblesDataModel;
         try {
             if(bubblesData != undefined)
             {
-            if(bubblesData.gameType == GameType.DoublePlayer)
-            {  
-                this.sendMessageModel.sendRequestToClientToAbortGame(bubblesData,connection);
-            }
-            this.clearPreviousGame(gameId);
+                if(bubblesData.gameType == GameType.DoublePlayer)
+                {  
+                    this.sendMessageModel.sendRequestToClientToAbortGame(bubblesData,connection);
+                }
+                this.clearPreviousGame(gameId);
             }
             this.closeClientConnection(gameId,connection);
         } catch (error) {
@@ -77,7 +77,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is creating the new game when a player clicks on new game button.
      * @connection WebSocketConnection
     */
-    public createNewGame(connection : WebSocketConnection)
+    public createNewGame(connection : WebSocketConnection) : void
     {
         let gameId = this.getGameId(connection);
         this.clearPreviousGame(gameId);
@@ -89,7 +89,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods checks if a bubble is present in the BubbleData.
      * @connection WebSocketConnection @bubbleId string
     */
-    public checkBubblePresent(id: string,connection: WebSocketConnection)
+    public checkBubblePresent(id: string,connection: WebSocketConnection) : boolean
     {
        let gameId = this.getGameId(connection);
        let bubble = this.getBubbleInfoWithId(gameId,id) as BubbleInfo;
@@ -101,7 +101,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
         return false;
        } catch (error) {
          console.log(error);
-        return false; 
+         return false; 
        }      
     }
     
@@ -109,7 +109,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for validates Bubble data.
      * @connection WebSocketConnection
     */
-    public  validateBubble(bubbleId: string,connection : WebSocketConnection)
+    public validateBubble(bubbleId: string,connection : WebSocketConnection) : void
     {
         if(this.checkBubblePresent(bubbleId,connection) == true)
         {
@@ -122,7 +122,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for generating the bubbles and storing them in BubbleData.
      * @connection WebSocketConnection
     */
-    public async generatesBubblesAndSetData(connection: WebSocketConnection)
+    public generatesBubblesAndSetData(connection: WebSocketConnection) : void
     {
         let gameId = this.getGameId(connection);
         let bubblesData: BubblesDataModel = this.getBubblesData(gameId) as BubblesDataModel;
@@ -144,7 +144,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for validating the bubble and send back the client with an update.
      * @connection WebSocketConnection @bubbleId string
     */
-    public popBubble(id: string, connection:WebSocketConnection)
+    public popBubble(id: string, connection:WebSocketConnection): void
     {
         let gameId = this.getGameId(connection);
         let bubbleData: BubblesDataModel = this.getBubblesData(gameId) as BubblesDataModel;
@@ -256,7 +256,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for sending requests from one client to other.
      * @connection WebSocketConnection @clientId string
     */
-    public sendRequestToOtherClient(connection:WebSocketConnection,clientId:string)
+    public sendRequestToOtherClient(connection:WebSocketConnection,clientId:string): void
     { 
       let otherClientConnection: ConnectionDetails = this.getClientConnection(clientId);
       let ownClientConnection: ConnectionDetails = this.getOwnClientConnectionData(connection);
@@ -272,7 +272,7 @@ class ClientBubbleAPI extends ClientBubbleDataModel{
      * This methods is used for when a requested client accepts the requested invitation. 
      * @connection WebSocketConnection @clientId string
     */
-    public acceptInvitation(connection:WebSocketConnection,clientId:string)
+    public acceptInvitation(connection:WebSocketConnection,clientId:string) : void
     {
       let otherClientConnection: ConnectionDetails = this.getClientConnection(clientId);
       if(otherClientConnection.status == StatusType.Available)
