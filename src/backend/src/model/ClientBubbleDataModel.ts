@@ -47,7 +47,7 @@ class ClientBubbleDataModel {
      * This method sets the event Emitter object.
      * @brustEmitter EventEmitter
     */    
-    protected setBrustEmitter(brustEmitter : EventEmitter)
+    protected setBrustEmitter(brustEmitter : EventEmitter) : void
     {
         this.brustEmitter = brustEmitter;
     }
@@ -57,7 +57,7 @@ class ClientBubbleDataModel {
      * key = websocket and value = gameId
      * @connection WebSocketConnection @gameId string
     */
-    protected setConnectionGameData(websocket : WebSocketConnection, gameId : string)
+    protected setConnectionGameData(websocket : WebSocketConnection, gameId : string) : void
     {
         this.connectionsHashMap.set(websocket,gameId);
     }
@@ -66,7 +66,7 @@ class ClientBubbleDataModel {
      * This method is used for storing the client connection details
      * @connection WebSocketConnection 
     */
-    protected addNewClient(connection : WebSocketConnection)
+    protected addNewClient(connection : WebSocketConnection) : string
     { 
       let connectionDetails:ConnectionDetails = {
         websocket : connection,
@@ -74,15 +74,15 @@ class ClientBubbleDataModel {
         clientId : randomUUID().toString()
       }
       this.connectionsList.push(connectionDetails);
-      return connectionDetails.clientId;
+      return connectionDetails.clientId as string;
     }
      
 
-    protected createDoublePlayerGame(connection1: WebSocketConnection,connection2: WebSocketConnection)
+    protected createDoublePlayerGame(connection1: WebSocketConnection,connection2: WebSocketConnection) : string
     {
        let value =  this.objectGameValues.createDoublePlayerGame(connection1,connection2);
-       this.clientBubbles.set(value.gameId,value as BubblesDataModel);
-       return value.gameId;
+       this.clientBubbles.set(value.gameId as string,value as BubblesDataModel);
+       return value.gameId as string;
     }
 
     /**
@@ -90,11 +90,11 @@ class ClientBubbleDataModel {
      *  And stores it as key pair as gameId and BubblesDataModel
      * @connection WebSocketConnection
     */
-    protected createSinglePlayerGameData(connection:WebSocketConnection)
+    protected createSinglePlayerGameData(connection:WebSocketConnection) : string
     {
-        let value =  this.objectGameValues.createSinglePlayerGameData(connection);
-        this.clientBubbles.set(value.gameId,value as BubblesDataModel);
-        return value.gameId;   
+        let value:BubblesDataModel =  this.objectGameValues.createSinglePlayerGameData(connection);
+        this.clientBubbles.set(value.gameId as string,value as BubblesDataModel);
+        return value.gameId as string;   
     }
 
     /**
@@ -104,8 +104,8 @@ class ClientBubbleDataModel {
     */
     protected setBubblesData(gameId: string, bubblesList : Array<BubbleInfo>) : void {
         let bubbleData:BubblesDataModel = this.clientBubbles.get(gameId) as BubblesDataModel;
-        bubblesList = bubblesList.sort((a:BubbleInfo, b:BubbleInfo) => a.expiryTime - b.expiryTime);
-        bubbleData = this.objectBubbleFunctions.setBubblesData(gameId,bubblesList,bubbleData);
+        bubblesList.sort((a:BubbleInfo, b:BubbleInfo) => a.expiryTime - b.expiryTime);
+        this.objectBubbleFunctions.setBubblesData(gameId,bubblesList,bubbleData);
         this.setScheduler(gameId,bubblesList);
     }
     
@@ -113,10 +113,10 @@ class ClientBubbleDataModel {
      * This method is return BubblesDataModel of the gameId.
      * @gameId string
     */
-    protected getBubblesData(gameId : string) {
+    protected getBubblesData(gameId : string) : BubblesDataModel {
         
         try {
-            return this.clientBubbles.get(gameId);
+            return this.clientBubbles.get(gameId) as BubblesDataModel;
         } catch (error) {
             return <BubblesDataModel> {} as BubblesDataModel;
         }
@@ -277,8 +277,8 @@ class ClientBubbleDataModel {
     protected pauseGame(gameId:string) : void
     { 
         let bubblesData :BubblesDataModel =  this.clientBubbles.get(gameId) as BubblesDataModel;
-        let pauseBubblesData: Queue<PauseData> =  this.clientBubbles.get(gameId)?.pauseData as Queue<PauseData>
-        let queue:Queue<BubbleSchedulerQueue> =  this.clientBubbles.get(gameId)?.bubblesSchedulerQueue as Queue<BubbleSchedulerQueue>;
+        let pauseBubblesData: Queue<PauseData> =  bubblesData.pauseData as Queue<PauseData>
+        let queue:Queue<BubbleSchedulerQueue> =  bubblesData.bubblesSchedulerQueue as Queue<BubbleSchedulerQueue>;
         bubblesData.gameState = GameState.Resume;
         this.objectGameStateFunctions.pauseGame(pauseBubblesData,queue)
     }
