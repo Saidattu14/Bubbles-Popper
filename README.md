@@ -1,25 +1,19 @@
 ## Commands to run the project
-I written both client and server in TypeScript
 
-* `npm install`, this will install both backend and frontend dependencies
-* `npm start`, At the root `Fullstack folder` will start the backend server at port `http://localhost:4000`
-* `npm start`, At the root `Frontend folder` will start the frontend app that servers at port `http://localhost:3000`
+* `npm install`, At the root `backend folder` and `frontend folder` install dependencies
+* `npm start`, At the root `backend folder` will start the backend server at port `http://localhost:4000`
+* `npm start`, At the root `frontend folder` will start the frontend app that servers at port `http://localhost:3000`
 
-## Things I did well
+## Project
 
-* websocket communication between client and server
-* Scheduling the bubble expiry and notify timeouts.
-* Pause and Resume functionality of the game.
-* Double Player Feature.
-* Some unexpected state handling things at both frontend and backend.
+* This is a web system (frontend & backend) that completes the bubble popping game.
+* The websocket server sends information about spawned bubbles, and await messages from the client when a bubble has been popped.
 
-## Things I didn't do well
+## Game rules
 
-* Generating a const number of bubbles only.
-* Better UI features and Responsive.
-* More clear documentation of the code.
-
-
----
-
-Thank you so much. Looking forward to the complete review from the team.
+* Bubbles should appear at random positions on screen
+* The time interval between bubble spawns should change, start out slow and go faster and faster. Adding a random element is appreciated
+* Bubbles should stay alive for a random time period, use your judgement for setting the limits to make the game challenging and fair.
+* Multiple bubbles are allowed on the screen at the same time.
+* If a bubble bursts (times out) before the player pops it, the game is over.
+* Game score is the number of bubbles popped.
