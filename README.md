@@ -12,6 +12,6 @@
 ## Game rules
 
 * Bubbles appears at random positions on screen
-* Bubbles should stay alive for a random time period.
+* Bubbles stay alive for a random time period.
 * If a bubble bursts (times out) before the player pops it, the game is over.
 * Game score is the number of bubbles popped.
