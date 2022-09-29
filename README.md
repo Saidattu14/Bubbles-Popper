@@ -11,9 +11,7 @@
 
 ## Game rules
 
-* Bubbles should appear at random positions on screen
-* The time interval between bubble spawns should change, start out slow and go faster and faster. Adding a random element is appreciated
-* Bubbles should stay alive for a random time period, use your judgement for setting the limits to make the game challenging and fair.
-* Multiple bubbles are allowed on the screen at the same time.
+* Bubbles appears at random positions on screen
+* Bubbles should stay alive for a random time period.
 * If a bubble bursts (times out) before the player pops it, the game is over.
 * Game score is the number of bubbles popped.
